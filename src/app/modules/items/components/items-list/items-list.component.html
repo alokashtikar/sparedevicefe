@@ -1,1 +1,8 @@
-<p>items-list works!</p>
+<mat-list>
+  <div mat-subheader>Items</div>
+  <mat-list-item *ngFor="let item of items">
+    <mat-icon mat-list-icon>near_me</mat-icon>
+    <div mat-line>{{item.option}} | {{item.type}}</div>
+    <div mat-line>{{item.description}}</div>
+  </mat-list-item>
+</mat-list>
