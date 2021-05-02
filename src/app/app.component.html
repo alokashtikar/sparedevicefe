@@ -1,17 +1,1 @@
-
 <router-outlet></router-outlet>
-
-<amplify-authenticator *ngIf="authState !== 'signedin'">
-  <amplify-sign-up slot="sign-up" usernameAlias="email">
-    <div slot="federated-buttons"></div>
-  </amplify-sign-up>
-  <amplify-sign-in slot="sign-in" usernameAlias="email">
-    <div slot="federated-buttons"></div>
-  </amplify-sign-in>
-</amplify-authenticator>
-
-<div *ngIf="authState === 'signedin'" class="App">
-  <amplify-sign-out></amplify-sign-out>
-  <div>Hello, {{user.username}}</div>
-  <!-- This is where you application template code goes -->
-</div>

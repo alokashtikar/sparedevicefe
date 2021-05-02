@@ -4,11 +4,11 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import Amplify, {Auth} from 'aws-amplify';
+import {AuthModule} from "./modules/auth/auth.module";
+import {ItemsModule} from "./modules/items/items.module";
+import {AmplifyUIAngularModule} from "@aws-amplify/ui-angular";
 /* Add Amplify imports */
-import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
-
-import Amplify, { Auth } from 'aws-amplify';
 
 Amplify.configure({
   Auth: {
@@ -76,10 +76,12 @@ const currentConfig = Auth.configure();
     AppComponent,
   ],
   imports: [
-    AmplifyUIAngularModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule,
+    ItemsModule,
+    AmplifyUIAngularModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

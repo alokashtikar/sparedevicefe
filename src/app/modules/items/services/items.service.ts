@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IItem} from "../models/IItem";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,7 @@ export class ItemService {
     ])
   }
 
-  getItem() {
+  getItem(): Observable<IItem[]> {
     return this.items.pipe();
   }
 

@@ -1,11 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ItemService} from "../../services/items.service";
 import {IItem} from "../../models/IItem";
 import {tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
+import {CognitoUserInterface} from '@aws-amplify/ui-components';
+import {AuthService} from "../../../auth/services/auth.service";
 import {CreateItemComponent} from "../create-item/create-item.component";
 import {FormGroup} from "@angular/forms";
-import { onAuthUIStateChange, CognitoUserInterface, AuthState } from '@aws-amplify/ui-components';
 
 @Component({
   selector: 'app-items-list',
@@ -16,26 +17,20 @@ export class ItemsListComponent implements OnInit {
 
   items: IItem[] = [];
   user: CognitoUserInterface | undefined;
-  authState: AuthState;
+  loggedIn = false;
 
-  constructor(public dialog: MatDialog, private readonly itemsService: ItemService, private ref: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog, private readonly itemsService: ItemService, private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.authService.getAuthState()
+      .pipe(tap((state) => this.loggedIn = state))
+      .subscribe();
+
     this.itemsService.getItem()
       .pipe(
         tap((items) => this.items = items)
       ).subscribe();
-
-    onAuthUIStateChange((authState, authData) => {
-      this.authState = authState;
-      this.user = authData as CognitoUserInterface;
-      this.ref.detectChanges();
-    });
-  }
-
-  ngOnDestroy() {
-    return onAuthUIStateChange;
   }
 
   createItem() {
@@ -44,7 +39,9 @@ export class ItemsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: FormGroup) => {
-      console.log(result.value);
+      if (result !== undefined || result !== null) {
+        console.log(result.value);
+      }
     });
   }
 
