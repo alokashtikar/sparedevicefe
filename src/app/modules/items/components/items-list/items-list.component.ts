@@ -4,6 +4,7 @@ import {IItem} from "../../models/IItem";
 import {tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateItemComponent} from "../create-item/create-item.component";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-items-list',
@@ -27,6 +28,10 @@ export class ItemsListComponent implements OnInit {
   createItem() {
     const dialogRef = this.dialog.open(CreateItemComponent, {
       width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: FormGroup) => {
+      console.log(result.value);
     });
   }
 

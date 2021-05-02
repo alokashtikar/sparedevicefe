@@ -1,1 +1,31 @@
-<p>create-item works!</p>
+<h1 mat-dialog-title>Create Item</h1>
+<div mat-dialog-content *ngIf="newItemForm">
+  <form [formGroup]="newItemForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input formControlName="description" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Options</mat-label>
+      <mat-select formControlName="option">
+        <mat-option *ngFor="let option of options" [value]="option.value">
+          {{option.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-action align="end">
+      <button [mat-dialog-close]="newItemForm" cdkFocusInitial>Create</button>
+    </div>
+  </form>
+</div>
