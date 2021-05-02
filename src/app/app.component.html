@@ -10,7 +10,7 @@
   </amplify-sign-in>
 </amplify-authenticator>
 
-<div *ngIf="authState === 'signedin' && user" class="App">
+<div *ngIf="authState === 'signedin'" class="App">
   <amplify-sign-out></amplify-sign-out>
   <div>Hello, {{user.username}}</div>
   <!-- This is where you application template code goes -->
