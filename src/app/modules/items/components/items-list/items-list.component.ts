@@ -7,6 +7,7 @@ import {CognitoUserInterface} from '@aws-amplify/ui-components';
 import {AuthService} from "../../../auth/services/auth.service";
 import {CreateItemComponent} from "../create-item/create-item.component";
 import {FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-items-list',
@@ -19,7 +20,10 @@ export class ItemsListComponent implements OnInit {
   user: CognitoUserInterface | undefined;
   loggedIn = false;
 
-  constructor(public dialog: MatDialog, private readonly itemsService: ItemService, private readonly authService: AuthService) {
+  constructor(public dialog: MatDialog,
+              private readonly itemsService: ItemService,
+              private readonly authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -45,4 +49,7 @@ export class ItemsListComponent implements OnInit {
     });
   }
 
+  login() {
+    this.router.navigateByUrl('/auth').then();
+  }
 }
