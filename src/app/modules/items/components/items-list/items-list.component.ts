@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ItemService} from "../../services/items.service";
 import {IItem} from "../../models/IItem";
 import {tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateItemComponent} from "../create-item/create-item.component";
 import {FormGroup} from "@angular/forms";
+import { onAuthUIStateChange, CognitoUserInterface, AuthState } from '@aws-amplify/ui-components';
 
 @Component({
   selector: 'app-items-list',
@@ -14,8 +15,10 @@ import {FormGroup} from "@angular/forms";
 export class ItemsListComponent implements OnInit {
 
   items: IItem[] = [];
+  user: CognitoUserInterface | undefined;
+  authState: AuthState;
 
-  constructor(public dialog: MatDialog, private readonly itemsService: ItemService) {
+  constructor(public dialog: MatDialog, private readonly itemsService: ItemService, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -23,6 +26,16 @@ export class ItemsListComponent implements OnInit {
       .pipe(
         tap((items) => this.items = items)
       ).subscribe();
+
+    onAuthUIStateChange((authState, authData) => {
+      this.authState = authState;
+      this.user = authData as CognitoUserInterface;
+      this.ref.detectChanges();
+    });
+  }
+
+  ngOnDestroy() {
+    return onAuthUIStateChange;
   }
 
   createItem() {
