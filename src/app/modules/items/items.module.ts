@@ -5,6 +5,8 @@ import {RouterModule} from "@angular/router";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import {CreateItemComponent} from "./components/create-item/create-item.component";
 
 
 export const routes = [
@@ -17,12 +19,13 @@ export const routes = [
 
 
 @NgModule({
-  declarations: [ItemsListComponent],
+  declarations: [ItemsListComponent, CreateItemComponent],
   imports: [
     RouterModule.forChild(routes),
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     CommonModule
   ]
 })
