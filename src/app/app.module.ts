@@ -65,6 +65,19 @@ Amplify.configure({
       redirectSignOut: 'http://localhost:4200',
       responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
     }
+  },
+  API: {
+    endpoints: [
+      {
+        name: 'OpenAndUser',
+        endpoint: 'https://1r5jvnbupb.execute-api.ap-south-1.amazonaws.com/DEV',
+        custom_header: async (): Promise<{ Authorization: string }> => {
+          return {
+            Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+          };
+        }
+      }
+    ]
   }
 });
 

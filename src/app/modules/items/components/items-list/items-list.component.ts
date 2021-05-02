@@ -46,7 +46,13 @@ export class ItemsListComponent implements OnInit {
       if (result !== undefined || result !== null) {
         console.log(result.value);
       }
+      this.addItem();
     });
+  }
+
+  addItem(): void {
+    console.log('createItem in Component called');
+    this.itemsService.createItem({description: '231874681763', longitude: 2341324.1324, latitude: 243852.245, option: 'SomeOption', type: 'SomeType'} as IItem);
   }
 
   login() {

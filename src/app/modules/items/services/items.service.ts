@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {IItem} from "../models/IItem";
 import {BehaviorSubject, Observable} from "rxjs";
 
+import API from '@aws-amplify/api';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,7 +62,17 @@ export class ItemService {
     return this.items.pipe();
   }
 
-  createItem(item: IItem) {
+  async createItem(item: IItem) {
+    console.log('createItem in Service called');
+    const path = `/user/items`;
+    const myInit: any = {
+      body: {item},
+      headers: {}, // OPTIONAL
+      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+    };
+
+    await API.put('OpenAndUser', path, myInit);
+    console.log('something happened');
     this.items.next([...this.items.value, item]);
   }
 }
