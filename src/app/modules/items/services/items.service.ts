@@ -16,11 +16,9 @@ export class ItemService {
         description: 'Example description',
         isValid: true,
         lastUpdateDateTime: Date.now(),
-        lastUpdatedBy: "WaqasShargeel",
-        location: {
-          lat: 0,
-          lon: 0
-        },
+        lastUpdatedBy: 'WaqasShargeel',
+        latitude: 0,
+        longitude: 0,
         option: 'LEND',
         type: 'Oxygen Mask',
         username: 'WaqasShargeel',
@@ -32,11 +30,9 @@ export class ItemService {
         description: 'Example description',
         isValid: true,
         lastUpdateDateTime: Date.now(),
-        lastUpdatedBy: "WaqasShargeel",
-        location: {
-          lat: 0,
-          lon: 0
-        },
+        lastUpdatedBy: 'WaqasShargeel',
+        latitude: 0,
+        longitude: 0,
         option: 'FREE',
         type: 'Oxygen Mask',
         username: 'WaqasShargeel',
@@ -48,11 +44,9 @@ export class ItemService {
         description: 'Example description',
         isValid: true,
         lastUpdateDateTime: Date.now(),
-        lastUpdatedBy: "WaqasShargeel",
-        location: {
-          lat: 0,
-          lon: 0
-        },
+        lastUpdatedBy: 'WaqasShargeel',
+        latitude: 0,
+        longitude: 0,
         option: 'SELL',
         type: 'Oxygen Mask',
         username: 'WaqasShargeel',
