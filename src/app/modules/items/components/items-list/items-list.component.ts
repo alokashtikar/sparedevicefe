@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {ItemService} from "../../services/items.service";
 import {IItem} from "../../models/IItem";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-items-list',
@@ -8,61 +10,16 @@ import {IItem} from "../../models/IItem";
 })
 export class ItemsListComponent implements OnInit {
 
-  items: IItem[] = [
-    {
-      id: 'XYZ',
-      description: 'Example description',
-      isValid: true,
-      lastUpdateDateTime: Date.now(),
-      lastUpdatedBy: "WaqasShargeel",
-      location: {
-        lat: 0,
-        lon: 0
-      },
-      option: 'LEND',
-      type: 'Oxygen Mask',
-      username: 'WaqasShargeel',
-      version: 1,
-      votes: 1
-    },
-    {
-      id: 'XYZ',
-      description: 'Example description',
-      isValid: true,
-      lastUpdateDateTime: Date.now(),
-      lastUpdatedBy: "WaqasShargeel",
-      location: {
-        lat: 0,
-        lon: 0
-      },
-      option: 'FREE',
-      type: 'Oxygen Mask',
-      username: 'WaqasShargeel',
-      version: 1,
-      votes: 1
-    },
-    {
-      id: 'XYZ',
-      description: 'Example description',
-      isValid: true,
-      lastUpdateDateTime: Date.now(),
-      lastUpdatedBy: "WaqasShargeel",
-      location: {
-        lat: 0,
-        lon: 0
-      },
-      option: 'SELL',
-      type: 'Oxygen Mask',
-      username: 'WaqasShargeel',
-      version: 1,
-      votes: 1
-    },
-  ];
+  items: IItem[] = [];
 
-  constructor() {
+  constructor(private readonly itemsService: ItemService) {
   }
 
   ngOnInit(): void {
+    this.itemsService.getItem()
+      .pipe(
+        tap((items) => this.items = items)
+      ).subscribe();
   }
 
 }
