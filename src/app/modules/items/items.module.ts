@@ -4,6 +4,7 @@ import {ItemsListComponent} from './components/items-list/items-list.component';
 import {RouterModule} from "@angular/router";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 export const routes = [
@@ -21,6 +22,7 @@ export const routes = [
     RouterModule.forChild(routes),
     MatListModule,
     MatIconModule,
+    MatButtonModule,
     CommonModule
   ]
 })
