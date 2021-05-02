@@ -61,8 +61,8 @@ Amplify.configure({
     oauth: {
       domain: 'sparedevice-dev.auth.ap-south-1.amazoncognito.com',
       // scope: ['aws.cognito.signin.user.admin'],
-      redirectSignIn: 'http://localhost:4200/cognito',
-      redirectSignOut: 'http://localhost:4200/',
+      redirectSignIn: 'http://localhost:4200',
+      redirectSignOut: 'http://localhost:4200',
       responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
     }
   }

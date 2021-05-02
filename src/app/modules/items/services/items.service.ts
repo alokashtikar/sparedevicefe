@@ -53,7 +53,7 @@ export class ItemService {
         version: 1,
         votes: 1
       }
-    ])
+    ]);
   }
 
   getItem(): Observable<IItem[]> {
@@ -61,6 +61,6 @@ export class ItemService {
   }
 
   createItem(item: IItem) {
-    this.items.next([...this.items.value, item])
+    this.items.next([...this.items.value, item]);
   }
 }
