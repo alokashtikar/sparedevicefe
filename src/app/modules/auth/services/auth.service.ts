@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import Auth from '@aws-amplify/auth';
 import {Hub} from 'aws-amplify';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   private user: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor() {
+  constructor(private readonly router: Router, private zone: NgZone) {
     Hub.listen('auth', (data) => {
       switch (data.payload.event) {
         case 'signIn':
@@ -54,6 +55,10 @@ export class AuthService {
       if (user !== null) {
         this.user.next(user);
         this.loggedIn.next(true);
+
+        this.zone.run(() => {
+          this.router.navigateByUrl('/items').then();
+        })
       } else {
         this.user.next(null);
         this.loggedIn.next(false);
