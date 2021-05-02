@@ -1,0 +1,10 @@
+<amplify-authenticator *ngIf="!authState">
+  <amplify-sign-up slot="sign-up" usernameAlias="email">
+    <div slot="federated-buttons"></div>
+  </amplify-sign-up>
+  <amplify-sign-in slot="sign-in" usernameAlias="email">
+    <div slot="federated-buttons"></div>
+  </amplify-sign-in>
+</amplify-authenticator>
+
+<button *ngIf="authState" (click)="authService.logout()">Logout</button>
