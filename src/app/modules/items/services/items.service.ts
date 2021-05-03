@@ -48,10 +48,7 @@ export class ItemService {
       headers: {}, // OPTIONAL
       response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
     };
-
     await API.post('OpenAndUser', path, myInit);
-    console.log('something happened');
-    this.reloadItems();
   }
 
   reloadItems() {
