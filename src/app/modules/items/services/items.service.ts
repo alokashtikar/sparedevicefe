@@ -11,68 +11,20 @@ export class ItemService {
   private readonly items: BehaviorSubject<IItem[]> = new BehaviorSubject([]);
 
   constructor() {
-    // mock data;
-    this.items.next([
-      {
-        id: 'XYZ',
-        description: 'Example description',
-        isValid: true,
-        lastUpdatedDateTime: Date.now(),
-        lastUpdatedBy: 'WaqasShargeel',
-        latitude: 0,
-        longitude: 0,
-        option: 'LEND',
-        type: 'Oxygen Mask',
-        username: 'WaqasShargeel',
-        version: 1,
-        votes: 1
-      },
-      {
-        id: 'XYZ',
-        description: 'Example description',
-        isValid: true,
-        lastUpdatedDateTime: Date.now(),
-        lastUpdatedBy: 'WaqasShargeel',
-        latitude: 0,
-        longitude: 0,
-        option: 'FREE',
-        type: 'Oxygen Mask',
-        username: 'WaqasShargeel',
-        version: 1,
-        votes: 1
-      },
-      {
-        id: 'XYZ',
-        description: 'Example description',
-        isValid: true,
-        lastUpdatedDateTime: Date.now(),
-        lastUpdatedBy: 'WaqasShargeel',
-        latitude: 0,
-        longitude: 0,
-        option: 'SELL',
-        type: 'Oxygen Mask',
-        username: 'WaqasShargeel',
-        version: 1,
-        votes: 1
-      }
-    ]);
+    this.reloadItems();
   }
 
-  getItem(): Observable<IItem[]> {
+  getItems(): Observable<IItem[]> {
     return this.items.pipe();
   }
 
-  async getAllItems(): Promise<void> {
+  async getAllItems(): Promise<IItem[]> {
     const path = `/open/items`;
     const myInit: any = {
       headers: {}, // OPTIONAL
       response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
     };
-
-    await API.get('OpenAndUser', path, myInit).then(value => {
-      console.log('All Items');
-      console.log(value);
-    });
+    return await API.get('OpenAndUser', path, myInit)
   }
 
   async getUserItems(): Promise<void> {
@@ -99,6 +51,11 @@ export class ItemService {
 
     await API.post('OpenAndUser', path, myInit);
     console.log('something happened');
-    this.items.next([...this.items.value, item]);
+    this.reloadItems();
   }
+
+  reloadItems() {
+    this.getAllItems().then((items) => this.items.next(items));
+  }
+
 }

@@ -31,7 +31,7 @@ export class ItemsListComponent implements OnInit {
       .pipe(tap((state) => this.loggedIn = state))
       .subscribe();
 
-    this.itemsService.getItem()
+    this.itemsService.getItems()
       .pipe(
         tap((items) => this.items = items)
       ).subscribe();
@@ -46,21 +46,14 @@ export class ItemsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: FormGroup) => {
-      if (result !== undefined || result !== null) {
-        console.log(result.value);
+      if (result !== undefined || result.value !== undefined) {
+        this.itemsService.createItem({
+          ...result.value,
+          longitude: 2341324.1324,
+          latitude: 243852.245,
+        }).then(r => this.itemsService.getAllItems());
       }
-      this.addItem();
     });
-  }
-
-  addItem(): void {
-    console.log('createItem in Component called');
-    this.itemsService.createItem({
-      description: 'Contact2',
-      longitude: 2341324.1324,
-      latitude: 243852.245,
-      option: 'LEND',
-      type: 'OXYGEN'} as IItem);
   }
 
   login() {

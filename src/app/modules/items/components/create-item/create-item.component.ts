@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-create-item',
@@ -25,9 +25,9 @@ export class CreateItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.newItemForm = this.formBuilder.group({
-      description: '',
-      type: '',
-      option: ''
+      description: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      option: new FormControl('', [Validators.required])
     });
   }
 }
