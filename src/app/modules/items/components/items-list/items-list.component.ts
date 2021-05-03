@@ -52,7 +52,12 @@ export class ItemsListComponent implements OnInit {
 
   addItem(): void {
     console.log('createItem in Component called');
-    this.itemsService.createItem({description: '231874681763', longitude: 2341324.1324, latitude: 243852.245, option: 'SomeOption', type: 'SomeType'} as IItem);
+    this.itemsService.createItem({
+      description: 'Contact2',
+      longitude: 2341324.1324,
+      latitude: 243852.245,
+      option: 'LEND',
+      type: 'OXYGEN'} as IItem);
   }
 
   login() {

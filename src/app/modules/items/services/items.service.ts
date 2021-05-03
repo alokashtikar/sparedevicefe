@@ -17,7 +17,7 @@ export class ItemService {
         id: 'XYZ',
         description: 'Example description',
         isValid: true,
-        lastUpdateDateTime: Date.now(),
+        lastUpdatedDateTime: Date.now(),
         lastUpdatedBy: 'WaqasShargeel',
         latitude: 0,
         longitude: 0,
@@ -31,7 +31,7 @@ export class ItemService {
         id: 'XYZ',
         description: 'Example description',
         isValid: true,
-        lastUpdateDateTime: Date.now(),
+        lastUpdatedDateTime: Date.now(),
         lastUpdatedBy: 'WaqasShargeel',
         latitude: 0,
         longitude: 0,
@@ -45,7 +45,7 @@ export class ItemService {
         id: 'XYZ',
         description: 'Example description',
         isValid: true,
-        lastUpdateDateTime: Date.now(),
+        lastUpdatedDateTime: Date.now(),
         lastUpdatedBy: 'WaqasShargeel',
         latitude: 0,
         longitude: 0,
@@ -71,7 +71,7 @@ export class ItemService {
       response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
     };
 
-    await API.put('OpenAndUser', path, myInit);
+    await API.post('OpenAndUser', path, myInit);
     console.log('something happened');
     this.items.next([...this.items.value, item]);
   }

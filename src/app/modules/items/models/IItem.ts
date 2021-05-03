@@ -3,7 +3,7 @@ export interface IItem {
   'isValid': boolean;
   'version': number;
   'lastUpdatedBy': string;
-  'lastUpdateDateTime': number;
+  'lastUpdatedDateTime': number;
   'username': string;
   'description': string;
   'type': string;
