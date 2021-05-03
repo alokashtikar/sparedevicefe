@@ -62,6 +62,32 @@ export class ItemService {
     return this.items.pipe();
   }
 
+  async getAllItems(): Promise<void> {
+    const path = `/open/items`;
+    const myInit: any = {
+      headers: {}, // OPTIONAL
+      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+    };
+
+    await API.get('OpenAndUser', path, myInit).then(value => {
+      console.log('All Items');
+      console.log(value);
+    });
+  }
+
+  async getUserItems(): Promise<void> {
+    const path = `/user/items`;
+    const myInit: any = {
+      headers: {}, // OPTIONAL
+      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+    };
+
+    await API.get('OpenAndUser', path, myInit).then(value => {
+      console.log('User Items');
+      console.log(value);
+    });
+  }
+
   async createItem(item: IItem) {
     console.log('createItem in Service called');
     const path = `/user/items`;

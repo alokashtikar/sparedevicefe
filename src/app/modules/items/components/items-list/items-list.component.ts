@@ -35,6 +35,9 @@ export class ItemsListComponent implements OnInit {
       .pipe(
         tap((items) => this.items = items)
       ).subscribe();
+
+    this.itemsService.getAllItems();
+    this.itemsService.getUserItems();
   }
 
   createItem() {
