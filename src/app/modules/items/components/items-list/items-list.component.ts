@@ -77,8 +77,10 @@ export class ItemsListComponent implements OnInit {
   }
 
   updateItems() {
-    if (this.position !== null || this.position !== undefined) {
-      this.itemsService.reloadItems(this.selection, this.position.latitude, this.position.longitude);
+    if (this.position !== undefined) {
+      this.itemsService.reloadItems(this.selection,
+        this.position !== null ? this.position.latitude : undefined,
+        this.position !== null ? this.position.longitude : undefined);
     }
   }
 
