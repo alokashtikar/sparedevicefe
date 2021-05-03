@@ -10,7 +10,18 @@
   </button>
 </mat-toolbar>
 
-<mat-list>
+<br>
+
+<mat-form-field appearance="fill">
+  <mat-label>Type</mat-label>
+  <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
+    <mat-option *ngFor="let type of types" [value]="type.value">
+      {{type.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-list *ngIf="position !== undefined && position !== null">
   <div mat-subheader>Items</div>
   <mat-list-item *ngFor="let item of items">
     <mat-icon mat-list-icon>near_me</mat-icon>
@@ -18,3 +29,12 @@
     <div mat-line>{{item.city}} | {{item.description}}</div>
   </mat-list-item>
 </mat-list>
+
+<div *ngIf="position === undefined">
+  <h1>Loading Location...</h1>
+</div>
+
+<div *ngIf="position === null">
+  <h1>Unable to get Location... Please ensure location services are enabled.</h1>
+</div>
+

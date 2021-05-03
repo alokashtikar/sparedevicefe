@@ -11,34 +11,38 @@ export class ItemService {
   private readonly items: BehaviorSubject<IItem[]> = new BehaviorSubject([]);
 
   constructor() {
-    this.reloadItems();
   }
 
   getItems(): Observable<IItem[]> {
     return this.items.pipe();
   }
 
-  async getAllItems(): Promise<IItem[]> {
+  async getAllItems(type: string, lat: number, long: number): Promise<IItem[]> {
     const path = `/open/items`;
     const myInit: any = {
       headers: {}, // OPTIONAL
-      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+      response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+      queryStringParameters: {  // OPTIONAL
+        type: type,
+        latitude: lat,
+        longitude: long
+      },
     };
     return await API.get('OpenAndUser', path, myInit)
   }
 
-  async getUserItems(): Promise<void> {
-    const path = `/user/items`;
-    const myInit: any = {
-      headers: {}, // OPTIONAL
-      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
-    };
-
-    await API.get('OpenAndUser', path, myInit).then(value => {
-      console.log('User Items');
-      console.log(value);
-    });
-  }
+  // async getUserItems(): Promise<void> {
+  //   const path = `/user/items`;
+  //   const myInit: any = {
+  //     headers: {}, // OPTIONAL
+  //     response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   };
+  //
+  //   await API.get('OpenAndUser', path, myInit).then(value => {
+  //     console.log('User Items');
+  //     console.log(value);
+  //   });
+  // }
 
   async createItem(item: IItem) {
     console.log('createItem in Service called');
@@ -51,8 +55,8 @@ export class ItemService {
     await API.post('OpenAndUser', path, myInit);
   }
 
-  reloadItems() {
-    this.getAllItems().then((items) => this.items.next(items));
+  reloadItems(type: string, lat: number, long: number) {
+    this.getAllItems(type, lat, long).then((items) => this.items.next(items));
   }
 
 }

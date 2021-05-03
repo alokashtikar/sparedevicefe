@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ItemTypes} from "../../models/IItem";
 
 @Component({
   selector: 'app-create-item',
@@ -9,13 +10,11 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class CreateItemComponent implements OnInit {
 
   newItemForm: FormGroup;
-  types: any = [
-    {value: 'OXYGEN', viewValue: 'Oxygen'},
-    {value: 'MASK', viewValue: 'Mask'},
-  ];
+  types = ItemTypes;
 
   options: any = [
     {value: 'LEND', viewValue: 'Lend'},
+    {value: 'RENT', viewValue: 'Rent'},
     {value: 'SELL', viewValue: 'Sell'},
     {value: 'FREE', viewValue: 'Free'}
   ];

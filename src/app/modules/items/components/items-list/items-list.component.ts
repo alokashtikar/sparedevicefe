@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ItemService} from "../../services/items.service";
-import {IItem} from "../../models/IItem";
+import {IItem, ItemTypes} from "../../models/IItem";
 import {tap} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {CognitoUserInterface} from '@aws-amplify/ui-components';
@@ -21,6 +21,8 @@ export class ItemsListComponent implements OnInit {
   user: CognitoUserInterface | undefined;
   loggedIn = false;
   position: any;
+  types = ItemTypes;
+  selection = ItemTypes[0].value;
 
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,
@@ -39,9 +41,7 @@ export class ItemsListComponent implements OnInit {
         tap((items) => this.items = items)
       ).subscribe();
 
-    this.getPosition().then((pos) => {
-      this.position = pos;
-    }, (error) => this.position = null);
+    this.updatePosition();
   }
 
   createItem() {
@@ -59,13 +59,27 @@ export class ItemsListComponent implements OnInit {
         this.itemsService.createItem({
           ...result.value,
           ...this.position
-        }).then(r => this.itemsService.reloadItems());
+        }).then(r => this.updateItems());
       }
     });
   }
 
   login() {
     this.router.navigateByUrl('/auth').then();
+  }
+
+
+  updatePosition() {
+    this.getPosition().then((pos) => {
+      this.position = pos;
+      this.updateItems();
+    }, (error) => this.position = null);
+  }
+
+  updateItems() {
+    if (this.position !== null || this.position !== undefined) {
+      this.itemsService.reloadItems(this.selection, this.position.latitude, this.position.longitude);
+    }
   }
 
   getPosition(): Promise<any> {

@@ -14,3 +14,8 @@ export interface IItem {
   longitude: number;
   votes: number;
 }
+
+export const ItemTypes: any[] = [
+  {value: 'OXYGEN', viewValue: 'Oxygen'},
+  {value: 'MASK', viewValue: 'Mask'},
+];
