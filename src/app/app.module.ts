@@ -72,9 +72,13 @@ Amplify.configure({
         name: 'OpenAndUser',
         endpoint: 'https://1r5jvnbupb.execute-api.ap-south-1.amazonaws.com/DEV',
         custom_header: async (): Promise<{ Authorization: string }> => {
-          return {
-            Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
-          };
+          try {
+            return {
+              Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+            };
+          } catch (e) {
+            return ;
+          }
         }
       }
     ]
