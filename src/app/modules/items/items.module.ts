@@ -32,6 +32,7 @@ export const routes = [
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatButtonModule,
     MatToolbarModule,
     MatSnackBarModule,
     FormsModule,
