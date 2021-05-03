@@ -19,6 +19,7 @@ export class ItemsListComponent implements OnInit {
   items: IItem[] = [];
   user: CognitoUserInterface | undefined;
   loggedIn = false;
+  position: any;
 
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,
@@ -36,8 +37,10 @@ export class ItemsListComponent implements OnInit {
         tap((items) => this.items = items)
       ).subscribe();
 
-    this.itemsService.getAllItems();
-    this.itemsService.getUserItems();
+    this.getPosition().then((pos) => {
+      this.position = pos;
+      console.log(this.position);
+    }, (error) => console.log(error));
   }
 
   createItem() {
@@ -46,11 +49,12 @@ export class ItemsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: FormGroup) => {
-      if (result !== undefined || result.value !== undefined) {
+      if (result !== undefined && result.value !== undefined) {
         this.itemsService.createItem({
           ...result.value,
-          longitude: 2341324.1324,
-          latitude: 243852.245,
+          longitude: 0,
+          latitude: 0,
+          ...this.position
         }).then(r => this.itemsService.getAllItems());
       }
     });
@@ -58,5 +62,20 @@ export class ItemsListComponent implements OnInit {
 
   login() {
     this.router.navigateByUrl('/auth').then();
+  }
+
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resp => {
+          resolve({longitude: resp.coords.longitude, latitude: resp.coords.latitude});
+        },
+        err => {
+          reject(err);
+        });
+
+      setTimeout(() => {
+        reject('Timeout!')
+      }, 5000);
+    });
   }
 }
