@@ -8,6 +8,7 @@ import {AuthService} from "../../../auth/services/auth.service";
 import {CreateItemComponent} from "../create-item/create-item.component";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-items-list',
@@ -24,6 +25,7 @@ export class ItemsListComponent implements OnInit {
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,
               private readonly authService: AuthService,
+              private snackBar: MatSnackBar,
               private router: Router) {
   }
 
@@ -39,11 +41,15 @@ export class ItemsListComponent implements OnInit {
 
     this.getPosition().then((pos) => {
       this.position = pos;
-      console.log(this.position);
-    }, (error) => console.log(error));
+    }, (error) => this.position = null);
   }
 
   createItem() {
+    if (this.position === undefined || this.position === null) {
+      this.snackBar.open('Unable to get location! Please enable location to create an item.', 'Close');
+      this.getPosition().then();
+      return;
+    }
     const dialogRef = this.dialog.open(CreateItemComponent, {
       width: '350px',
     });
@@ -52,10 +58,8 @@ export class ItemsListComponent implements OnInit {
       if (result !== undefined && result.value !== undefined) {
         this.itemsService.createItem({
           ...result.value,
-          longitude: 0,
-          latitude: 0,
           ...this.position
-        }).then(r => this.itemsService.getAllItems());
+        }).then(r => this.itemsService.reloadItems());
       }
     });
   }
@@ -75,7 +79,7 @@ export class ItemsListComponent implements OnInit {
 
       setTimeout(() => {
         reject('Timeout!')
-      }, 5000);
+      }, 10000);
     });
   }
 }

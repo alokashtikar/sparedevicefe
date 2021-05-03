@@ -1,6 +1,7 @@
 <mat-toolbar>
   <span>Spare Devices</span>
   <span class="example-spacer"></span>
+  <span>Lat: {{position?.latitude}} | Long: {{position?.longitude}}</span>
   <button disabled="{{!loggedIn}}" mat-icon-button color="primary" aria-label="Create an item" (click)="createItem()">
     <mat-icon>create</mat-icon>
   </button>
