@@ -73,7 +73,10 @@ export class ItemsListComponent implements OnInit {
     this.getPosition().then((pos) => {
       this.position = pos;
       this.updateItems();
-    }, (error) => this.position = null);
+    }, (error) => {
+      this.position = null;
+      this.updateItems();
+    });
   }
 
   updateItems() {
