@@ -17,5 +17,7 @@ export interface IItem {
 
 export const ItemTypes: any[] = [
   {value: 'OXYGEN', viewValue: 'Oxygen'},
-  {value: 'MASK', viewValue: 'Mask'},
+  {value: 'PPE', viewValue: 'PPE'},
+  {value: 'MEDICINES', viewValue: 'Medicines'},
+  {value: 'DEVICES', viewValue: 'Oximeter & Other Devices'}
 ];
