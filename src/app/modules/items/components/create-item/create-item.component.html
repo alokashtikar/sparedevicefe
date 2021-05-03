@@ -1,14 +1,25 @@
 <h1 mat-dialog-title>Create Item</h1>
 <div mat-dialog-content *ngIf="newItemForm">
   <form [formGroup]="newItemForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput type="text" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <input formControlName="city" matInput type="text" required>
+    </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <input formControlName="description" matInput type="text">
+      <textarea matInput formControlName="description" required></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Type</mat-label>
-      <mat-select formControlName="type">
+      <mat-select formControlName="type" required>
         <mat-option *ngFor="let type of types" [value]="type.value">
           {{type.viewValue}}
         </mat-option>
@@ -17,7 +28,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Options</mat-label>
-      <mat-select formControlName="option">
+      <mat-select formControlName="option" required>
         <mat-option *ngFor="let option of options" [value]="option.value">
           {{option.viewValue}}
         </mat-option>

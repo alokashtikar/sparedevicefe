@@ -27,6 +27,8 @@ export class CreateItemComponent implements OnInit {
     this.newItemForm = this.formBuilder.group({
       description: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
       option: new FormControl('', [Validators.required])
     });
   }

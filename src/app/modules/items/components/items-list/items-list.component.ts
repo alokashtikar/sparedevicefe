@@ -51,7 +51,7 @@ export class ItemsListComponent implements OnInit {
       return;
     }
     const dialogRef = this.dialog.open(CreateItemComponent, {
-      width: '350px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result: FormGroup) => {
