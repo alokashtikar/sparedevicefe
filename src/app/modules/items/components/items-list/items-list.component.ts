@@ -9,6 +9,7 @@ import {CreateItemComponent} from "../create-item/create-item.component";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {noop} from 'rxjs';
 
 @Component({
   selector: 'app-items-list',
@@ -47,6 +48,11 @@ export class ItemsListComponent implements OnInit {
       ).subscribe();
 
     this.updatePosition();
+  }
+
+  delete(id: string): void {
+    confirm('You are about to delete your post. Continue?')
+    ? this.itemsService.deleteItem(id).then(r => this.updateItems()) : noop();
   }
 
   createItem() {

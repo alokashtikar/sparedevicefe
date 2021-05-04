@@ -31,6 +31,19 @@ export class ItemService {
     return await API.get('OpenAndUser', path, myInit)
   }
 
+  async deleteItem(itemId: string): Promise<void> {
+    console.log('createItem in Service called');
+    const path = `/user/items`;
+    const myInit: any = {
+      queryStringParameters: {
+        id: itemId
+      },
+      headers: {}, // OPTIONAL
+      response: false // OPTIONAL (return the entire Axios response object instead of only response.data)
+    };
+    await API.del('OpenAndUser', path, myInit);
+  }
+
   // async getUserItems(): Promise<void> {
   //   const path = `/user/items`;
   //   const myInit: any = {
