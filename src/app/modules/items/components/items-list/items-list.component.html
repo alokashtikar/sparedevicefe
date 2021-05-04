@@ -37,11 +37,18 @@
   <h3>Unable to get Location... Please ensure location services are enabled for near by results.</h3>
 </div>
 
-<mat-list>
-  <div mat-subheader>Items</div>
-  <mat-list-item *ngFor="let item of items">
-    <!--mat-icon mat-list-icon>near_me</mat-icon-->
-    <div mat-line>{{item.option}} | {{item.type}} | Posted by {{item.name}}</div>
-    <div mat-line>{{item.city}} | {{item.description}}</div>
-  </mat-list-item>
-</mat-list>
+  <div *ngFor="let item of items">
+    <mat-card>
+      <mat-card-header>
+      <mat-card-title>{{item.name}}</mat-card-title>
+      <mat-card-subtitle>{{item.city}} | {{item.type}} | {{item.option}} | {{item.lastUpdatedDateTime | date}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content><pre>{{item.description}}</pre></mat-card-content>
+      <mat-card-actions *ngIf="loggedIn">
+        <button mat-icon-button disabled="{{user?.username !== item.username}}">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+

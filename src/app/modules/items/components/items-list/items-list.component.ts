@@ -19,6 +19,7 @@ export class ItemsListComponent implements OnInit {
 
   items: IItem[] = [];
   user: CognitoUserInterface | undefined;
+  username: undefined;
   loggedIn = false;
   position: any;
   types = ItemTypes;
@@ -36,9 +37,13 @@ export class ItemsListComponent implements OnInit {
       .pipe(tap((state) => this.loggedIn = state))
       .subscribe();
 
+    this.authService.getUserInfo()
+      .pipe(tap((userInfo) => this.user = userInfo))
+      .subscribe();
+
     this.itemsService.getItems()
       .pipe(
-        tap((items) => this.items = items)
+        tap((items) => this.items = items.sort((a, b) => b.lastUpdatedDateTime - a.lastUpdatedDateTime))
       ).subscribe();
 
     this.updatePosition();
