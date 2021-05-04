@@ -1,25 +1,33 @@
 <mat-toolbar>
   <span>Spare Devices</span>
   <span class="example-spacer"></span>
-  <span>Lat: {{position?.latitude}} | Long: {{position?.longitude}}</span>
-  <button disabled="{{!loggedIn}}" mat-icon-button color="primary" aria-label="Create an item" (click)="createItem()">
-    <mat-icon>create</mat-icon>
-  </button>
-  <button mat-icon-button color="primary" aria-label="Create an item" (click)="login()">
+  <button mat-icon-button class="right-aligned" color="primary" aria-label="Create an item" (click)="login()">
     <mat-icon>login</mat-icon>
   </button>
 </mat-toolbar>
+<div>
+  <span *ngIf="!loggedIn">To post item you can provide, please sign in.</span>
+  <span *ngIf="loggedIn">If you can provide something, post item.</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button color="accent" aria-label="Create an item" (click)="createItem()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 
 <br>
 
+<div>
+<span>What are you looking for?</span>
+
 <mat-form-field appearance="fill">
-  <mat-label>Type</mat-label>
+<!--  <mat-label>Type</mat-label>-->
   <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
     <mat-option *ngFor="let type of types" [value]="type.value">
       {{type.viewValue}}
     </mat-option>
   </mat-select>
 </mat-form-field>
+</div>
 
 <div *ngIf="position === undefined">
   <h1>Loading Location...</h1>
@@ -32,7 +40,7 @@
 <mat-list>
   <div mat-subheader>Items</div>
   <mat-list-item *ngFor="let item of items">
-    <mat-icon mat-list-icon>near_me</mat-icon>
+    <!--mat-icon mat-list-icon>near_me</mat-icon-->
     <div mat-line>{{item.option}} | {{item.type}} | Posted by {{item.name}}</div>
     <div mat-line>{{item.city}} | {{item.description}}</div>
   </mat-list-item>
