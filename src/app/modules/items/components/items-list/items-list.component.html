@@ -9,7 +9,7 @@
   <span *ngIf="!loggedIn">To post item you can provide, please sign in.</span>
   <span *ngIf="loggedIn">If you can provide something, post item.</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button color="accent" aria-label="Create an item" (click)="createItem()">
+  <button disabled="{{!loggedIn}}" mat-icon-button color="accent" aria-label="Create an item" (click)="createItem()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
