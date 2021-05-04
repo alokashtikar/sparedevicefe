@@ -45,7 +45,7 @@
       </mat-card-header>
       <mat-card-content><pre>{{item.description}}</pre></mat-card-content>
       <mat-card-actions *ngIf="loggedIn">
-        <button mat-icon-button disabled="{{user?.username !== item.username}}">
+        <button mat-icon-button disabled="{{user?.username !== item.username}}" (click)="delete(item.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
