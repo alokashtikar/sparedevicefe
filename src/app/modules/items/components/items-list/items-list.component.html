@@ -1,16 +1,17 @@
 <mat-toolbar>
   <span>Spare Devices</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="right-aligned" color="primary" aria-label="Create an item" (click)="login()">
-    <mat-icon>login</mat-icon>
+  <button mat-button class="right-aligned" color="primary" aria-label="Create an item" (click)="login()">
+    <span *ngIf="!loggedIn">SignIn / SignUp</span>
+    <span *ngIf="loggedIn">Logout</span>
   </button>
 </mat-toolbar>
-<div>
+<div class="example-spacer">
   <span *ngIf="!loggedIn">To post item you can provide, please sign in.</span>
   <span *ngIf="loggedIn">If you can provide something, post item.</span>
   <span class="example-spacer"></span>
-  <button disabled="{{!loggedIn}}" mat-icon-button color="accent" aria-label="Create an item" (click)="createItem()">
-    <mat-icon>add</mat-icon>
+  <button disabled="{{!loggedIn}}" mat-button color="accent" aria-label="Create an item" (click)="createItem()">
+    Post Item
   </button>
 </div>
 
@@ -18,7 +19,7 @@
 
 <div>
 <span>What are you looking for?</span>
-
+<br>
 <mat-form-field appearance="fill">
 <!--  <mat-label>Type</mat-label>-->
   <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
