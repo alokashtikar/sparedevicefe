@@ -10,6 +10,7 @@ import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {noop} from 'rxjs';
+import {ILocation, LocationService} from '../../services/location/location.service';
 
 @Component({
   selector: 'app-items-list',
@@ -30,7 +31,8 @@ export class ItemsListComponent implements OnInit {
               private readonly itemsService: ItemService,
               private readonly authService: AuthService,
               private snackBar: MatSnackBar,
-              private router: Router) {
+              private router: Router,
+              private locationService: LocationService) {
   }
 
   ngOnInit(): void {
@@ -101,7 +103,10 @@ export class ItemsListComponent implements OnInit {
   getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
-          resolve({longitude: resp.coords.longitude, latitude: resp.coords.latitude});
+          const location: ILocation = {longitude: resp.coords.longitude, latitude: resp.coords.latitude};
+
+          resolve(location);
+          this.locationService.updateLocation(location);
         },
         err => {
           reject(err);
