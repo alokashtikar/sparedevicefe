@@ -78,7 +78,7 @@ export class ItemsListComponent implements OnInit {
   }
 
   login() {
-    this.router.navigateByUrl('/auth').then();
+    this.loggedIn ? this.authService.logout() : this.router.navigateByUrl('/auth').then();
   }
 
 
