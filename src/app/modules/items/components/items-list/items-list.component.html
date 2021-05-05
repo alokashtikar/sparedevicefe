@@ -58,7 +58,7 @@
           </div>
           <pre>{{item.description}}</pre>
         </mat-card-content>
-        <mat-card-actions *ngIf="user?.username !== item.username">
+        <mat-card-actions *ngIf="user?.username === item.username">
           <button (click)="delete(item.id)">
             <mat-icon>delete</mat-icon>
           </button>
