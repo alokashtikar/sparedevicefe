@@ -10,9 +10,14 @@
   <span *ngIf="!loggedIn">To post item you can provide, please sign in.</span>
   <span *ngIf="loggedIn">If you can provide something, post item.</span>
   <span class="example-spacer"></span>
-  <button disabled="{{!loggedIn}}" mat-button color="accent" aria-label="Create an item" (click)="createItem()">
+  <button disabled="{{!loggedIn || position === undefined}}" mat-button color="accent" aria-label="Create an item" (click)="createItem()">
     Post Item
   </button>
+  <br>
+  <span *ngIf="position === undefined">Trying to identify location...</span>
+</div>
+<div>
+  <span>For feedback/ suggestion/ requests please <a href="mailto:sparedevicenearme@gmail.com">Email Us</a>.</span>
 </div>
 
 <br>

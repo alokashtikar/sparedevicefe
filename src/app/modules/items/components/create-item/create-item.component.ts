@@ -24,7 +24,9 @@ export class CreateItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.newItemForm = this.formBuilder.group({
-      description: new FormControl('Contact number/email:\n\nOther details:\n', [Validators.required]),
+      description: new FormControl(
+        'Contact number/email:\n\nOther details of the product or service:\n\nPrice (if selling/rent):',
+        [Validators.required]),
       type: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
