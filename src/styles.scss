@@ -1,4 +1,128 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Viewports
+$bp-desktop: 769px;
+$bp-tablet: 768px;
+$bp-phone: 480px;
+
+@mixin desktop {
+  @media screen and (min-width: $bp-desktop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $bp-phone + 1px) and (max-width: $bp-tablet) {
+    @content;
+  }
+}
+
+html, body {
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  height: 100%;
+  margin: 0;
+}
+
+.mat-toolbar {
+  background: rgb(113, 91, 191);
+  background: -moz-linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+  background: linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#715bbf', endColorstr='#cc1c88', GradientType=1);
+  color: #fff;
+  height: auto;
+
+  .branding {
+    padding: 1rem 0;
+
+    .logo {
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: bold;
+      display: block;
+      letter-spacing: -.01em;
+    }
+
+    .tagline {
+      font-size: .75rem;
+      margin-top: .5rem;
+      line-height: 1;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+}
+
+.page-content {
+  padding: 1rem;
+
+  @include desktop {
+    max-width: 1440px;
+    padding: 3rem;
+    margin: 0 auto;
+  }
+}
+
+.info-box {
+  padding: 1rem;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .15);
+  border-radius: .5rem;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
+
+  p {
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin: 0 0 .5rem 0;
+  }
+}
+
+.mat-card {
+  .mat-card-header-text {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.item-list {
+  display: block;
+
+  > div {
+  }
+
+  .mat-card {
+    margin-bottom: 1rem;
+
+    @include desktop {
+      height: calc(100% - 2rem);
+      margin: 0;
+    }
+
+    @include tablet {
+      height: calc(100% - 2rem);
+      margin: 0;
+    }
+  }
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1.5rem;
+  }
+
+  @include tablet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+  }
+}
+
