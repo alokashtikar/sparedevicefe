@@ -1,38 +1,47 @@
 <mat-toolbar>
-  <span>Spare Devices</span>
+  <mat-icon color="accent">priority_high</mat-icon>
+  <span class="title">Spare Devices</span>
   <span class="example-spacer"></span>
   <button mat-button class="right-aligned" color="primary" aria-label="Create an item" (click)="login()">
     <span *ngIf="!loggedIn">SignIn / SignUp</span>
     <span *ngIf="loggedIn">Logout</span>
   </button>
 </mat-toolbar>
-<div class="example-spacer">
-  <span *ngIf="!loggedIn">To post item you can provide, please sign in.</span>
-  <span *ngIf="loggedIn">If you can provide something, post item.</span>
-  <span class="example-spacer"></span>
-  <button disabled="{{!loggedIn || position === undefined}}" mat-button color="accent" aria-label="Create an item" (click)="createItem()">
-    Post Item
-  </button>
+<div>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="namste-ava"></div>
+      <mat-card-title>
+        <h3 *ngIf="!loggedIn">To post item you can provide, please sign in.</h3>
+        <h3 *ngIf="loggedIn">Namaste! If you can provide something, please click button below to create a listing.</h3>
+      </mat-card-title>
+      <mat-card-subtitle>For feedback/ suggestion/ requests please <a href="mailto:sparedevicenearme@gmail.com">Email
+        Us</a>.
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <span *ngIf="position === undefined">Trying to identify location...</span>
+      <p>Please put something here to describe what the website does... etc.</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button disabled="{{!loggedIn || position === undefined}}" mat-button color="accent" aria-label="Create an item"
+              (click)="createItem()">
+        Post Item
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div>
   <br>
-  <span *ngIf="position === undefined">Trying to identify location...</span>
-</div>
-<div>
-  <span>For feedback/ suggestion/ requests please <a href="mailto:sparedevicenearme@gmail.com">Email Us</a>.</span>
-</div>
-
-<br>
-
-<div>
-<span>What are you looking for?</span>
-<br>
-<mat-form-field appearance="fill">
-<!--  <mat-label>Type</mat-label>-->
-  <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
-    <mat-option *ngFor="let type of types" [value]="type.value">
-      {{type.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>I am looking for...</mat-label>
+    <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
+      <mat-option *ngFor="let type of types" [value]="type.value">
+        {{type.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 
 <div *ngIf="position === undefined">
@@ -43,18 +52,25 @@
   <h3>Unable to get Location... Please ensure location services are enabled for near by results.</h3>
 </div>
 
-  <div *ngFor="let item of items">
-    <mat-card>
-      <mat-card-header>
+<div *ngFor="let item of items">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{item.name}}</mat-card-title>
-      <mat-card-subtitle>{{item.city}} | {{item.type}} | {{item.option}} | {{item.lastUpdatedDateTime | date}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content><pre>{{item.description}}</pre></mat-card-content>
-      <mat-card-actions *ngIf="loggedIn">
-        <button mat-icon-button disabled="{{user?.username !== item.username}}" (click)="delete(item.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+      <mat-card-subtitle>{{item.city}} | {{item.type}} | {{item.option}}
+        | {{item.lastUpdatedDateTime | date}}</mat-card-subtitle>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <br>
+      <pre>{{item.description}}</pre>
+    </mat-card-content>
+    <mat-card-actions *ngIf="loggedIn && user?.username === item.username">
+      <button mat-icon-button (click)="delete(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
