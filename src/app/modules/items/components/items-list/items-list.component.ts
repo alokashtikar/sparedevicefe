@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../services/items.service';
-import { IItem, ItemTypes } from '../../models/IItem';
-import { tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { CognitoUserInterface } from '@aws-amplify/ui-components';
-import { AuthService } from '../../../auth/services/auth.service';
-import { CreateItemComponent } from '../create-item/create-item.component';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { noop } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ItemService} from "../../services/items.service";
+import {IItem, ItemTypes} from "../../models/IItem";
+import {tap} from "rxjs/operators";
+import {MatDialog} from "@angular/material/dialog";
+import {CognitoUserInterface} from '@aws-amplify/ui-components';
+import {AuthService} from "../../../auth/services/auth.service";
+import {CreateItemComponent} from "../create-item/create-item.component";
+import {FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {noop} from 'rxjs';
 import { ILocation, LocationService } from '../../services/location/location.service';
 
 @Component({
   selector: 'app-items-list',
   templateUrl: './items-list.component.html',
-  styleUrls: [ './items-list.component.scss' ]
+  styleUrls: ['./items-list.component.scss']
 })
 export class ItemsListComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class ItemsListComponent implements OnInit {
   loggedIn = false;
   position: any;
   types = ItemTypes;
-  selection = ItemTypes[ 0 ].value;
+  selection = ItemTypes[0].value;
 
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,
@@ -54,7 +54,7 @@ export class ItemsListComponent implements OnInit {
 
   delete(id: string): void {
     confirm('You are about to delete your post. Continue?')
-      ? this.itemsService.deleteItem(id).then(r => this.updateItems()) : noop();
+    ? this.itemsService.deleteItem(id).then(r => this.updateItems()) : noop();
   }
 
   createItem() {
@@ -103,7 +103,7 @@ export class ItemsListComponent implements OnInit {
   getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
-          const location: ILocation = { longitude: resp.coords.longitude, latitude: resp.coords.latitude };
+          const location: ILocation = {longitude: resp.coords.longitude, latitude: resp.coords.latitude};
 
           resolve(location);
           this.locationService.updateLocation(location);
@@ -113,7 +113,7 @@ export class ItemsListComponent implements OnInit {
         });
 
       setTimeout(() => {
-        reject('Timeout!');
+        reject('Timeout!')
       }, 10000);
     });
   }
