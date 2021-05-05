@@ -52,6 +52,11 @@ export class ItemsListComponent implements OnInit {
     this.updatePosition();
   }
 
+  replaceNewLine(desc: string): string {
+    const re = /\n/gi;
+    return desc.replace(re, '<br>');
+  }
+
   delete(id: string): void {
     confirm('You are about to delete your post. Continue?')
     ? this.itemsService.deleteItem(id).then(r => this.updateItems()) : noop();

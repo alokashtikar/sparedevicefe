@@ -1,9 +1,10 @@
-.example-spacer {
-  flex: 1 10px;
+.title {
+  color: green;
+  margin-left: 10px;
 }
 
-div {
-  padding: 10px;
+.example-spacer {
+  flex: 1 10px;
 }
 
 mat-form-field {
@@ -15,10 +16,56 @@ mat-form-field {
 }
 
 pre {
-  margin-outside: 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  white-space: normal;
+  word-break: normal;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
 }
 
-mat-list-item {
-  width: 100px;
-  height: auto;
+.mat-card-header {
+  width: 100%;
 }
+
+.mat-card-title {
+  width: 100%;
+
+  .option {
+    background: rgb(113, 91, 191);
+    background: -moz-linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+    background: linear-gradient(45deg, rgba(113, 91, 191, 1) 0%, rgba(204, 28, 136, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#715bbf', endColorstr='#cc1c88', GradientType=1);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    float: right;
+    border-radius: .25rem;
+    padding: 0.1rem .5rem;
+  }
+}
+
+.mat-card-content {
+  .summary {
+    display: table;
+
+    div {
+      display: grid;
+      grid-template-columns: 6rem auto;
+
+      span {
+        color: rgba(0,0,0,.54);
+        padding-right: .5rem;
+      }
+    }
+  }
+}
+
+.header-image {
+  margin-right: 10px;
+  background-image: url('https://www.flaticon.com/svg/vstatic/svg/1946/1946763.svg?token=exp=1620229919~hmac=48b4f86a3311ce4216a035af2c6b94c4');
+  background-size: cover;
+}
+
