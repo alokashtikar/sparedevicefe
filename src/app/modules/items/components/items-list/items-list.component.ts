@@ -10,7 +10,7 @@ import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {noop} from 'rxjs';
-import { ILocation, LocationService } from '../../services/location/location.service';
+import {ILocation, LocationService} from '../../services/location/location.service';
 
 @Component({
   selector: 'app-items-list',
