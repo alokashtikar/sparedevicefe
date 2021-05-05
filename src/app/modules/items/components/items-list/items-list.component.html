@@ -21,13 +21,9 @@
     </button>
   </div>
 
-  <br>
-
   <div>
-    <span>What are you looking for?</span>
-
     <mat-form-field appearance="fill">
-      <!--  <mat-label>Type</mat-label>-->
+        <mat-label>I am looking for...</mat-label>
       <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
         <mat-option *ngFor="let type of types" [value]="type.value">
           {{type.viewValue}}
