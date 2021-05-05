@@ -14,6 +14,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {HttpClientModule} from '@angular/common/http';
 
 
 export const routes = [
@@ -42,7 +43,8 @@ export const routes = [
     MatInputModule,
     MatSelectModule,
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule
   ]
 })
 export class ItemsModule {
