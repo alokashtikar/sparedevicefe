@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="branding">
-    <span class="logo">Spare Devices</span>
-    <span class="tagline">Provide Essential Equipments to Fight COVID-19</span>
+    <span class="logo">Spare Device</span>
+    <span class="tagline">Nearby Equipments and Medicine to Fight COVID-19</span>
   </div>
   <div class="example-spacer"></div>
   <button mat-icon-button class="right-aligned" color="white" aria-label="Create an item" (click)="login()">
@@ -13,7 +13,7 @@
 
   <div class="info-box">
     <p *ngIf="!loggedIn">To list an item, please <a href="./auth">sign in</a>.</p>
-    <p *ngIf="loggedIn">If you can provide something, please click add item.</p>
+    <p *ngIf="loggedIn">If you can provide equipments or medicines that nearby people need, please click: </p>
     <button disabled="{{!loggedIn}}" mat-button color="accent" aria-label="Create an item"
             (click)="createItem()">
       <mat-icon>add</mat-icon>
@@ -39,6 +39,11 @@
   <div *ngIf="position === null">
     <h3>Unable to get Location... Please ensure location services are enabled for near by results.</h3>
   </div>
+
+  <span><a href="https://www.sparedevice.com/tandc.html">Terms and conditions</a></span>
+  <br>
+  <span><a href="https://www.sparedevice.com/sparedevice-privacy-policy.html">Privacy policy</a></span>
+  <br>
 
   <div class="item-list">
     <div *ngFor="let item of items">
