@@ -4,8 +4,9 @@
     <span class="tagline">Donate Essential Equipment to Fight COVID-19</span>
   </div>
   <div class="example-spacer"></div>
-  <button mat-icon-button class="right-aligned" color="white" aria-label="Create an item" (click)="login()">
-    <mat-icon>login</mat-icon>
+  <button mat-button class="right-aligned" color="primary" aria-label="Create an item" (click)="login()">
+    <span *ngIf="!loggedIn">SignIn / SignUp</span>
+    <span *ngIf="loggedIn">Logout</span>
   </button>
 </mat-toolbar>
 
@@ -48,6 +49,7 @@
     <div *ngFor="let item of items">
       <mat-card>
         <mat-card-header>
+          <div mat-card-avatar class="header-image"></div>
           <mat-card-title>
             <span class="option">{{item.option}}</span>
             {{item.type}}
