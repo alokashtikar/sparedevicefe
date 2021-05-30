@@ -46,10 +46,19 @@ export class ItemsListComponent implements OnInit {
 
     this.itemsService.getItems()
       .pipe(
-        tap((items) => this.items = items.sort((a, b) => b.lastUpdatedDateTime - a.lastUpdatedDateTime))
+        tap((items) => this.items = items.sort((a, b) => a.proximity - b.proximity))
       ).subscribe();
 
     this.updatePosition();
+  }
+
+  getViewValue(type: string): string {
+    for (let i = 0; i < ItemTypes.length; i++) {
+      if (type === ItemTypes[i].value) {
+        return ItemTypes[i].viewValue;
+      }
+    }
+    return type;
   }
 
   replaceNewLine(desc: string): string {

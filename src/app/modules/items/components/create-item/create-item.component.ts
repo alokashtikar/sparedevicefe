@@ -10,15 +10,16 @@ import {LocationService} from '../../services/location/location.service';
 })
 export class CreateItemComponent implements OnInit {
 
+  maxLength = 300;
   newItemForm: FormGroup;
   types = ItemTypes;
 
-  options: any = [
-    {value: 'LEND', viewValue: 'Lend'},
-    {value: 'RENT', viewValue: 'Rent'},
-    {value: 'SELL', viewValue: 'Sell'},
-    {value: 'FREE', viewValue: 'Free'}
-  ];
+  // options: any = [
+  //   {value: 'LEND', viewValue: 'Lend'},
+  //   {value: 'RENT', viewValue: 'Rent'},
+  //   {value: 'SELL', viewValue: 'Sell'},
+  //   {value: 'FREE', viewValue: 'Free'}
+  // ];
 
   constructor(private readonly formBuilder: FormBuilder, private readonly locationService: LocationService) {
   }
@@ -28,12 +29,12 @@ export class CreateItemComponent implements OnInit {
       .subscribe((res) => {
         this.newItemForm = this.formBuilder.group({
           description: new FormControl(
-            'Contact number/email:\n\nOther details of the product or service:\n\nPrice (if selling/rent):',
-            [Validators.required]),
+            'Contact number/email:\n\n\nDetails about the product or service:\n',
+            [Validators.required, Validators.maxLength(300)]),
           type: new FormControl('', [Validators.required]),
           name: new FormControl('', [Validators.required]),
           city: new FormControl(`${res.locality}, ${res.countryName}`, [Validators.required]),
-          option: new FormControl('', [Validators.required])
+          // option: new FormControl('', [Validators.required])
         });
       });
   }

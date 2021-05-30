@@ -8,17 +8,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>City/Town</mat-label>
-      <input formControlName="city" matInput type="text" required readonly>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Type</mat-label>
+      <mat-label>Product or Service</mat-label>
       <mat-select formControlName="type" required>
         <mat-option *ngFor="let type of types" [value]="type.value">
           {{type.viewValue}}
@@ -27,13 +17,25 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Options</mat-label>
-      <mat-select formControlName="option" required>
-        <mat-option *ngFor="let option of options" [value]="option.value">
-          {{option.viewValue}}
-        </mat-option>
-      </mat-select>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" #description required></textarea>
+      <small *ngIf="maxLength >= description.value.length" class="form-text text-muted"><code>{{description.value.length}}</code> of <code>{{maxLength}}</code> characters</small>
+      <small *ngIf="maxLength < description.value.length" style="color: red" class="form-text text-muted"><code>{{description.value.length}}</code> of <code>{{maxLength}}</code> characters</small>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>City/Town</mat-label>
+      <input formControlName="city" matInput type="text" required readonly>
+    </mat-form-field>
+
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>Options</mat-label>-->
+<!--      <mat-select formControlName="option" required>-->
+<!--        <mat-option *ngFor="let option of options" [value]="option.value">-->
+<!--          {{option.viewValue}}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
 
     <div mat-dialog-action align="end">
       <button mat-raised-button color="accent" [mat-dialog-close]="newItemForm" cdkFocusInitial [disabled]="newItemForm.invalid">Create</button>

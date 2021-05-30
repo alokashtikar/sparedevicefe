@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="branding">
     <span class="logo">Spare Device</span>
-    <span class="tagline">Nearby Equipments and Medicine to Fight COVID-19</span>
+    <span class="tagline">Help Fight Against COVID-19</span>
   </div>
   <div class="example-spacer"></div>
   <button mat-icon-button class="right-aligned" color="white" aria-label="Create an item" (click)="login()">
@@ -11,10 +11,17 @@
 
 <section class="page-content">
 
+  <div align="center">
+    <span>In collaboration with:</span><br>
+    <a href="https://www.ifoundationindia.org"><img src="assets/logo.png"></a>
+  </div>
+  <br>
+
   <div class="info-box">
     <p *ngIf="!loggedIn">To list an item, please <a href="./auth">sign in</a>.</p>
-    <p *ngIf="loggedIn">If you can provide equipments or medicines that nearby people need, please click: </p>
-    <button disabled="{{!loggedIn}}" mat-button color="accent" aria-label="Create an item"
+    <p *ngIf="loggedIn">If you can provide something that nearby people need, please click: </p>
+    <button disabled="{{!loggedIn || position === undefined || position === null}}" mat-button color="accent"
+            aria-label="Create an item"
             (click)="createItem()">
       <mat-icon>add</mat-icon>
       Add Item
@@ -23,7 +30,7 @@
 
   <div>
     <mat-form-field appearance="fill">
-        <mat-label>I am looking for...</mat-label>
+      <mat-label>I am looking for...</mat-label>
       <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
         <mat-option *ngFor="let type of types" [value]="type.value">
           {{type.viewValue}}
@@ -37,22 +44,47 @@
   </div>
 
   <div *ngIf="position === null">
-    <h3>Unable to get Location... Please ensure location services are enabled for near by results.</h3>
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon style="color: red">warning</mat-icon>
+        </div>
+        <mat-card-title style="color: red;">
+          Please allow location service for near by results.
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
   </div>
 
-  <span><a href="https://www.sparedevice.com/tandc.html">Terms and conditions</a></span>
-  <br>
-  <span><a href="https://www.sparedevice.com/sparedevice-privacy-policy.html">Privacy policy</a></span>
+  <mat-card>
+
+    <mat-card-content>
+      <mat-card-subtitle>By using the website, you agree to the following:</mat-card-subtitle>
+      <span><a href="assets/tandc.html">Terms and conditions</a></span>
+      <br>
+      <span><a href="assets/sparedevice-privacy-policy.html">Privacy policy</a></span>
+    </mat-card-content>
+  </mat-card>
   <br>
 
   <div class="item-list">
     <div *ngFor="let item of items">
       <mat-card>
         <mat-card-header>
-          <div mat-card-avatar class="header-image"></div>
+          <!--          <div mat-card-avatar class="header-image"></div>-->
+          <div mat-card-avatar class="header-image">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                 focusable="false"
+                 style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                 preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path
+                d="M12.75 3.94c1-.72 2.16-1.08 3.47-1.08c.72 0 1.51.19 2.37.59c.86.39 1.54.85 2.04 1.38c1.03 1.28 1.46 2.77 1.31 4.47c-.16 1.7-.72 3.03-1.69 3.97l-7.59 7.59c-.19.19-.43.28-.71.28c-.28 0-.51-.09-.7-.28a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.71l4.59-4.59c.25-.22.25-.45 0-.7c-.25-.25-.48-.25-.7 0l-4.59 4.59a.95.95 0 0 1-.71.28c-.28 0-.51-.09-.7-.28a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.71l4.59-4.59c.27-.25.27-.5 0-.75c-.23-.25-.45-.25-.7 0l-4.59 4.64a.98.98 0 0 1-.71.28c-.28 0-.52-.09-.73-.28c-.2-.19-.3-.42-.3-.7c0-.28.11-.53.33-.75l4.6-4.6c.25-.25.25-.48 0-.7c-.25-.22-.49-.22-.71 0L6.28 14.5c-.22.2-.45.31-.7.31c-.28 0-.52-.1-.7-.31c-.19-.2-.29-.44-.29-.72c0-.28.1-.51.29-.7C7.94 10 9.83 8.14 10.55 7.45l3.56 3.52c.39.37.84.56 1.39.56c.7 0 1.25-.28 1.66-.84c.28-.41.38-.86.3-1.36c-.08-.5-.29-.92-.63-1.27l-4.08-4.12m2.06 6.33L10.55 6l-7.08 7.08c-.84-.85-1.32-2.15-1.43-3.92c-.11-1.76.37-3.29 1.43-4.57c1.19-1.18 2.61-1.78 4.26-1.78c1.66 0 3.07.6 4.22 1.78l4.27 4.27c.19.19.28.42.28.7c0 .28-.09.52-.28.71c-.19.18-.42.28-.72.28c-.27 0-.5-.1-.69-.28z"
+                fill="rgba(204, 28, 136, 1)"/>
+            </svg>
+          </div>
           <mat-card-title>
-            <span class="option">{{item.option}}</span>
-            {{item.type}}
+            <!--            <span class="option">{{item.option}}</span>-->
+            {{getViewValue(item.type)}}
           </mat-card-title>
           <mat-card-subtitle>Posted on {{item.lastUpdatedDateTime | date}}</mat-card-subtitle>
         </mat-card-header>
