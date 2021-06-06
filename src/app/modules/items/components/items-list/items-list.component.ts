@@ -25,7 +25,7 @@ export class ItemsListComponent implements OnInit {
   loggedIn = false;
   position: any;
   types = ItemTypes;
-  selection = ItemTypes[0].value;
+  selection = undefined;
 
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,

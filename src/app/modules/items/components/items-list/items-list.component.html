@@ -32,6 +32,7 @@
     <mat-form-field appearance="fill">
       <mat-label>I am looking for...</mat-label>
       <mat-select [(ngModel)]="selection" (selectionChange)="updateItems()">
+        <mat-option>-- Everything that is listed --</mat-option>
         <mat-option *ngFor="let type of types" [value]="type.value">
           {{type.viewValue}}
         </mat-option>
