@@ -75,14 +75,37 @@ body {
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .15);
   border-radius: .5rem;
   background-color: #fff;
-  margin-bottom: 1rem;
+  line-height: 1.5rem;
   text-align: center;
 
   p {
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1.25;
     margin: 0 0 .5rem 0;
+  }
+
+  b {
+    font-size: 1.25rem;
+    background: -webkit-linear-gradient(45deg, rgba(113, 91, 191, 1), rgba(204, 28, 136, 1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
+
+  button:disabled,
+  button[disabled] {
+    font-size: 1rem;
+    background: lightgrey;
+  }
+
+  button {
+    font-size: 1rem;
+    background: -webkit-linear-gradient(45deg, rgba(113, 91, 191, 1), rgba(204, 28, 136, 1));
+    color: white;
+    mat-button {
+      color: white;
+    }
   }
 }
 

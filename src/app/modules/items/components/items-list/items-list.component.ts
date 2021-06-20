@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ItemService} from "../../services/items.service";
-import {IItem, ItemTypes} from "../../models/IItem";
-import {tap} from "rxjs/operators";
-import {MatDialog} from "@angular/material/dialog";
+import {ItemService} from '../../services/items.service';
+import {IItem, ItemTypes} from '../../models/IItem';
+import {tap} from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
 import {CognitoUserInterface} from '@aws-amplify/ui-components';
-import {AuthService} from "../../../auth/services/auth.service";
-import {CreateItemComponent} from "../create-item/create-item.component";
-import {FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthService} from '../../../auth/services/auth.service';
+import {CreateItemComponent} from '../create-item/create-item.component';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {noop} from 'rxjs';
 import {ILocation, LocationService} from '../../services/location/location.service';
 
@@ -26,6 +26,7 @@ export class ItemsListComponent implements OnInit {
   position: any;
   types = ItemTypes;
   selection = undefined;
+  city = 'your area';
 
   constructor(public dialog: MatDialog,
               private readonly itemsService: ItemService,
@@ -68,10 +69,10 @@ export class ItemsListComponent implements OnInit {
 
   delete(id: string): void {
     confirm('You are about to delete your post. Continue?')
-    ? this.itemsService.deleteItem(id).then(r => this.updateItems()) : noop();
+    ? this.itemsService.deleteItem(id).then(_ => this.updateItems()) : noop();
   }
 
-  createItem() {
+  createItem(): void {
     if (this.position === undefined || this.position === null) {
       this.snackBar.open('Unable to get location! Please enable location to create an item.', 'Close');
       this.getPosition().then();
@@ -86,27 +87,31 @@ export class ItemsListComponent implements OnInit {
         this.itemsService.createItem({
           ...result.value,
           ...this.position
-        }).then(r => this.updateItems());
+        }).then(_ => this.updateItems());
       }
     });
   }
 
-  login() {
+  login(): void {
     this.loggedIn ? this.authService.logout() : this.router.navigateByUrl('/auth').then();
   }
 
 
-  updatePosition() {
+  updatePosition(): void {
     this.getPosition().then((pos) => {
+      this.locationService.getLocationDetails()
+        .subscribe((res) => {
+          this.city = res.locality;
+        });
       this.position = pos;
       this.updateItems();
-    }, (error) => {
+    }, (_) => {
       this.position = null;
       this.updateItems();
     });
   }
 
-  updateItems() {
+  updateItems(): void {
     if (this.position !== undefined) {
       this.itemsService.reloadItems(this.selection,
         this.position !== null ? this.position.latitude : undefined,
@@ -127,7 +132,7 @@ export class ItemsListComponent implements OnInit {
         });
 
       setTimeout(() => {
-        reject('Timeout!')
+        reject('Timeout!');
       }, 10000);
     });
   }

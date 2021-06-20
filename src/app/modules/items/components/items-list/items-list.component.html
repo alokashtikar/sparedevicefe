@@ -18,12 +18,11 @@
   <br>
 
   <div class="info-box">
-    <p *ngIf="!loggedIn">To list an item, please <a href="./auth">sign in</a>.</p>
-    <p *ngIf="loggedIn">If you can provide something that nearby people need, please click: </p>
-    <button disabled="{{!loggedIn || position === undefined || position === null}}" mat-button color="accent"
+    <span *ngIf="!loggedIn">To list an item that people in an around<br/><b>{{this.city}}</b><br/>need, please <a href="./auth">sign in</a>.<br/></span>
+    <span *ngIf="loggedIn">If you can provide something that people in an around<br/><b>{{this.city}}</b><br/>need, please click:<br/></span>
+    <button disabled="{{!loggedIn || position === undefined || position === null}}" mat-button color="white"
             aria-label="Create an item"
             (click)="createItem()">
-      <mat-icon>add</mat-icon>
       Add Item
     </button>
   </div>
