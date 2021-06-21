@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {noop} from 'rxjs';
 import {ILocation, LocationService} from '../../services/location/location.service';
+import Auth from '@aws-amplify/auth';
 
 @Component({
   selector: 'app-items-list',
@@ -22,6 +23,7 @@ export class ItemsListComponent implements OnInit {
   items: IItem[] = [];
   user: CognitoUserInterface | undefined;
   username: undefined;
+  userId: undefined;
   loggedIn = false;
   position: any;
   types = ItemTypes;
@@ -43,12 +45,12 @@ export class ItemsListComponent implements OnInit {
 
     this.authService.getUserInfo()
       .pipe(tap((userInfo) => this.user = userInfo))
-      .subscribe();
+      .subscribe(_ => Auth.currentUserInfo().then(value => this.userId = value.attributes.sub));
 
     this.itemsService.getItems()
       .pipe(
         tap((items) => this.items = items.sort((a, b) => a.proximity - b.proximity))
-      ).subscribe();
+      ).subscribe((x) => console.log(x));
 
     this.updatePosition();
   }

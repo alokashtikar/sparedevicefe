@@ -5,6 +5,7 @@ export class IItem {
   lastUpdatedBy: string;
   lastUpdatedDateTime: number;
   username: string;
+  userId: string;
   description: string;
   type: string;
   option: string;

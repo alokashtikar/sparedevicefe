@@ -96,7 +96,7 @@
           <br>
           <p [innerHTML]="replaceNewLine(item.description)"></p>
         </mat-card-content>
-        <mat-card-actions *ngIf="user?.username === item.username" align="end">
+        <mat-card-actions *ngIf="userId === item.userId" align="end">
           <button (click)="delete(item.id)">
             <mat-icon>delete</mat-icon>
           </button>
